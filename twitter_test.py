@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''Unit tests for the twitter.py library'''
+"""Unit tests for the twitter.py library"""
 
 __author__ = 'python-twitter@googlegroups.com'
 
@@ -25,9 +25,12 @@ import json as simplejson
 import time
 import calendar
 import unittest
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 
 import twitter
+
 
 class StatusTest(unittest.TestCase):
 
@@ -355,12 +358,13 @@ class ApiTest(unittest.TestCase):
   def setUp(self):
     self._urllib = MockUrllib()
     time.sleep(15)
-    api = twitter.Api(consumer_key='yDkaORxEcwX6SheX6pa1fw',
-                      consumer_secret='VYIGd2KITohR4ygmHrcyZgV0B74CXi5wsT1eryVtw',
-                      access_token_key='227846642-8IjK2K32CDFt3682SNOOpnzegAja3TyVpzFOGrQj',
-                      access_token_secret='L6of20EZdBv48EA2GE8Js6roIfZFnCKBpoPwvBDxF8',
+
+    api = twitter.Api(consumer_key='G48sZnCJbSFA7hkosP5H44UxE',
+                      consumer_secret='LVnk6apDpWaK6WwShWjcICdCSrhfXI5lV9aNWVRpzNBkoOWfCZ',
+                      access_token_key='3088882839-z4GWm0dS1lS3JKIgNXHRNyRtO9fAc4dBNWJKdWz',
+                      access_token_secret='UjQ8vN1dLJwND2ThdYy8uaoyWT38BARvwAI9f3juVa19u',
                       cache=None)
-    api.SetUrllib(self._urllib)
+    # api.SetUrllib(self._urllib)
     self._api = api
     print("Testing the API class. This test is time controlled")
 
@@ -637,26 +641,26 @@ class MockOpener(object):
 
 class ParseTest(unittest.TestCase):
   """ Test the ParseTweet class """
-  
-  def testParseTweets(self):    
+
+  def testParseTweets(self):
     handles4 =  """Do not use this word! Hurting me! @raja7727: @qadirbasha @manion @Jayks3 உடன்பிறப்பு”""";
-    
+
     data = twitter.ParseTweet("@twitter",handles4)
     self.assertEqual([data.RT,data.MT,len(data.UserHandles)],[False,False,4])
-    
+
     hashtag_n_URL = "மனதிற்கு மிகவும் நெருக்கமான பாடல்! உயிரையே கொடுக்கலாம் சார்! #KeladiKanmani https://www.youtube.com/watch?v=FHTiG_g2fM4 … #HBdayRajaSir";
-    
+
     data = twitter.ParseTweet("@twitter",hashtag_n_URL)
     self.assertEqual([len(data.Hashtags),len(data.URLs)],[2,1])
-    
+
     url_only = """The #Rainbow #Nebula, 544,667 #lightyears away. pic.twitter.com/2A4wSUK25A""";
     data = twitter.ParseTweet("@twitter",url_only)
     self.assertEqual([data.MT,len(data.Hashtags),len(data.URLs)],[False,3,1])
-    
+
     url_handle = """RT ‏@BarackObama POTUS recommends Python-Twitter #unrelated picture pic.twitter.com/w8lFIfuUmI""";
     data = twitter.ParseTweet("@twitter",url_handle)
     self.assertEqual([data.RT,len(data.Hashtags),len(data.URLs),len(data.UserHandles)],[True,1,1,1])
-    
+
 class MockHTTPBasicAuthHandler(object):
   '''A mock replacement for HTTPBasicAuthHandler'''
 

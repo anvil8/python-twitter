@@ -3467,8 +3467,7 @@ class Api(object):
             self._request_headers = {}
 
     def _InitializeUserAgent(self):
-        user_agent = 'Python-urllib/%s (python-twitter/%s)' % \
-                     (urllib.__version__, __version__)
+        user_agent = 'Python-urllib (python-twitter/%s)' % __version__
         self.SetUserAgent(user_agent)
 
     def _InitializeDefaultParameters(self):
@@ -3533,7 +3532,7 @@ class Api(object):
         network outages it will return an HTML failwhale page.
         """
         try:
-            data = simplejson.loads(json)
+            data = simplejson.loads(json.decode())
             self._CheckForTwitterError(data)
         except ValueError:
             if "<title>Twitter / Over capacity</title>" in json:
