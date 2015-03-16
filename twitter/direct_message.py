@@ -2,7 +2,7 @@ from builtins import object
 #!/usr/bin/env python
 
 from calendar import timegm
-import rfc822
+from email.utils import parsedate
 
 from twitter import simplejson, TwitterError
 
@@ -107,7 +107,7 @@ class DirectMessage(object):
         Returns:
           The time this direct message was posted, in seconds since the epoch.
         """
-        return timegm(rfc822.parsedate(self.created_at))
+        return timegm(parsedate(self.created_at))
 
     created_at_in_seconds = property(GetCreatedAtInSeconds,
                                      doc="The time this direct message was "

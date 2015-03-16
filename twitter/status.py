@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from __future__ import division
+
 from builtins import object
 from past.utils import old_div
 from calendar import timegm
-import rfc822
+from email.utils import parsedate
 import time
 
 from twitter import simplejson, Hashtag, TwitterError, Url
@@ -123,7 +123,7 @@ class Status(object):
             'withheld_in_countries': None,
             'withheld_scope': None}
 
-        for (param, default) in param_defaults.items():
+        for (param, default) in list(param_defaults.items()):
             setattr(self, param, kwargs.get(param, default))
 
     def GetCreatedAt(self):
@@ -152,7 +152,7 @@ class Status(object):
         Returns:
           The time this status message was posted, in seconds since the epoch.
         """
-        return timegm(rfc822.parsedate(self.created_at))
+        return timegm(parsedate(self.created_at))
 
     created_at_in_seconds = property(GetCreatedAtInSeconds,
                                      doc="The time this status message was "

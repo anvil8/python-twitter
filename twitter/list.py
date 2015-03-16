@@ -35,7 +35,7 @@ class List(object):
             'following': None,
             'user': None}
 
-        for (param, default) in param_defaults.items():
+        for (param, default) in list(param_defaults.items()):
             setattr(self, param, kwargs.get(param, default))
 
     def GetId(self):

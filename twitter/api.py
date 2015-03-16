@@ -18,8 +18,8 @@
 # limitations under the License.
 
 """A library that provides a Python interface to the Twitter API"""
-from __future__ import division
-from __future__ import print_function
+
+
 from future import standard_library
 standard_library.install_aliases()
 from builtins import map
@@ -1053,7 +1053,7 @@ class Api(object):
           continuation:
             The character string, if any, to be appended to all but the
             last message.  Note that Twitter strips trailing '...' strings
-            from messages.  Consider using the unicode \u2026 character
+            from messages.  Consider using the unicode \\u2026 character
             (horizontal ellipsis) instead. [Defaults to None]
           **kwargs:
             See api.PostUpdate for a list of accepted parameters.
