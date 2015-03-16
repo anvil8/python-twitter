@@ -85,7 +85,7 @@ class _FileCache(object):
 
     def _GetPath(self, key):
         try:
-            hashed_key = md5(key).hexdigest()
+            hashed_key = md5(key.encode()).hexdigest()
         except TypeError:
             hashed_key = md5.new(key).hexdigest()
 
